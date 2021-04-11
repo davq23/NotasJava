@@ -109,7 +109,7 @@ public class App extends JFrame implements ActionListener {
 
     public void setMenu() {
         // Inicializar MenuBar
-        menuBar = new MenuBar(xmlController);
+        menuBar = new MenuBar(xmlController, jFileChooser);
 
         // Agregar MenuBar
         setJMenuBar(menuBar);
@@ -209,9 +209,12 @@ public class App extends JFrame implements ActionListener {
         // Establecer menú
         app.setMenu();
 
-        // Definir detalles de JFrame
+        // Definir dimensiones iniciales
         app.setBounds(100, 100, 800, 600);
-        app.setMinimumSize(new Dimension(400, 200));
+
+        // Dimensiones mínimas
+        app.setMinimumSize(new Dimension(400, 400));
+        
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setVisible(true);
     }

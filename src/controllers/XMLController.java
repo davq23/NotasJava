@@ -6,10 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -23,15 +21,14 @@ import models.NotasTableModel;
 public class XMLController implements Runnable {
     // Propiedades
     private int operacion;
-    private String nombreArchivo = "output.xml";
-    
+
     // Constantes
     public static final int EXPORTAR_XML = 0;
     public static final int IMPORTAR_XML = 1;
-    
+
     // Archivo a importar
     private File fileChosen = null;
-    
+
     // Modelo de tabla
     private NotasTableModel notasTableModel;
 
@@ -59,13 +56,8 @@ public class XMLController implements Runnable {
         return fileChosen;
     }
 
-    public void setNombreArchivo(String nombreArchivo) {
-        // Agregar extensión XML en caso de no tenerla
-        if (!nombreArchivo.endsWith(".xml")) {
-            nombreArchivo += ".xml";
-        }
-
-        this.nombreArchivo = nombreArchivo;
+    public JFrame getParent() {
+        return parent;
     }
 
     public void setOperacion(int operacion) {
@@ -75,57 +67,43 @@ public class XMLController implements Runnable {
     public NotasTableModel getNotasTableModel() {
         return notasTableModel;
     }
-    
+
     @Override
     public void run() {
-        switch (operacion) {
-        case IMPORTAR_XML:
-            // Si se ha seleccionado un archivo
-            if (fileChosen != null) {
-                // Crear un DOMBuilder Factory
-                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-                try {
-                    // Crear un DOM builder
-                    DocumentBuilder dBuilder = factory.newDocumentBuilder();
-    
-                    // Crear una representación DOM del archivo
-                    Document doc = dBuilder.parse(fileChosen);
-                    
-                    // Asignar modelo de tabla resultante
-                    notasTableModel = NotasTableModel.getFromXML(doc);
-                    
-                } catch (Exception e) {
-                    // Mostrar mensaje de error
-                    JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), "Error de XML", 
-                        JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(parent, "Ningún archivo seleccionado", "Error de XML", 
-                JOptionPane.ERROR_MESSAGE);
+        try {
+            // Chequear que se haya seleccionado un archivo
+            if (fileChosen == null) {
+                throw new Exception("Ningún archivo seleccionado");
             }
-            break;
 
-        case EXPORTAR_XML:
-            // Crear un nuevo archivo
-            File xml = new File(nombreArchivo);
-                
             // Crear un DOMBuilder Factory
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-            try {
-                // Crear un DOM builder
-                DocumentBuilder dBuilder = factory.newDocumentBuilder();
+            // Crear un DOM builder
+            DocumentBuilder dBuilder = factory.newDocumentBuilder();
 
+            Document doc = null;
+
+            switch (operacion) {
+            case IMPORTAR_XML:
+                // Crear una representación DOM del archivo
+                doc = dBuilder.parse(fileChosen);
+
+                // Asignar modelo de tabla resultante
+                notasTableModel = NotasTableModel.getFromXML(doc);
+
+                break;
+
+            case EXPORTAR_XML:
                 // Crear un DOM nuevo
-                Document doc = dBuilder.newDocument();
+                doc = dBuilder.newDocument();
 
                 // Crear nodo principal
                 Element parentNode = doc.createElement("estudiantes");
 
                 // Obtener tabla XML en un fragmento
                 DocumentFragment fragment = notasTableModel.getXMLFragment(doc);
-                
+
                 // Agregar el fragmento al nodo principal
                 parentNode.appendChild(fragment);
 
@@ -137,26 +115,23 @@ public class XMLController implements Runnable {
                 Transformer transformer = transformerFactory.newTransformer();
 
                 // Formato legible (indentación y saltos de línea)
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
                 // Volcar DOM en archivo
                 DOMSource domSource = new DOMSource(doc);
-                StreamResult streamResult = new StreamResult(xml);
+                StreamResult streamResult = new StreamResult(fileChosen);
                 transformer.transform(domSource, streamResult);
 
-            } catch (ParserConfigurationException | TransformerException e) {
+                break;
 
-                JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), "Error de XML", 
-                    JOptionPane.ERROR_MESSAGE);
+            default:
+                break;
             }
-
-            break;
-
-        default:
-            break;
+        } catch (Exception e) {
+            // Mostrar mensaje de error
+            JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), "Error de XML", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
 }
