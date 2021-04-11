@@ -60,7 +60,7 @@ public class MenuBar extends JMenuBar {
 
                     case JFileChooser.ERROR_OPTION:
                         xmlController.setFileChosen(null);
-                        JOptionPane.showMessageDialog(jFileChooser, "Error en selección de archivo", "Error",
+                        JOptionPane.showMessageDialog(jFileChooser, "Error en selecci\u00f3n de archivo", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                         return;
                     }

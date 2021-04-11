@@ -45,8 +45,8 @@ public class App extends JFrame implements ActionListener {
 
     private JFileChooser jFileChooser = new JFileChooser();
 
-    private JLabel numEstudiantesLabel = new JLabel("Número de estudiantes");
-    private JLabel numMateriasLabel = new JLabel("Número de materias");
+    private JLabel numEstudiantesLabel = new JLabel("N\u00famero de estudiantes");
+    private JLabel numMateriasLabel = new JLabel("N\u00famero de materias");
 
     private JTextField numEstudiantesTextField = new JTextField(textFieldSize);
     private JTextField numMateriasTextField = new JTextField(textFieldSize);
@@ -144,7 +144,7 @@ public class App extends JFrame implements ActionListener {
             fileChosen = null;
             fileNameTextField.setText("");
 
-            JOptionPane.showMessageDialog(this, "Error en selección de archivo", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error en selecci\u00f3n de archivo", "Error", JOptionPane.ERROR_MESSAGE);
             break;
         }
 
@@ -157,7 +157,7 @@ public class App extends JFrame implements ActionListener {
         App app = new App("Calificaciones");
 
         // Mostrar diálogo inicial
-        int result = JOptionPane.showConfirmDialog(app, app.componentesDialogo, "Tamaño de matriz",
+        int result = JOptionPane.showConfirmDialog(app, app.componentesDialogo, "Tama\u00f1o de matriz",
                 JOptionPane.OK_CANCEL_OPTION);
 
         // Si la opcion no es ok, cerrar programa
@@ -176,7 +176,7 @@ public class App extends JFrame implements ActionListener {
                 app.notasTableModel = new NotasTableModel(numEstudiantes, numMaterias);
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(app, "Valores de inválidos de filas o columnas", "ERROR",
+                JOptionPane.showMessageDialog(app, "Valores de inv\u00e1lidos de filas o columnas", "ERROR",
                         JOptionPane.ERROR_MESSAGE);
 
                 app.dispose();

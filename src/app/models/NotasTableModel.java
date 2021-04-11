@@ -172,17 +172,17 @@ public class NotasTableModel extends AbstractTableModel {
         NodeList estudiantes = parentDocument.getElementsByTagName("estudiantes");
 
         if (estudiantes.getLength() != 1) {
-            throw new Exception("Esquema inválido (solo un elemento de estudiantes permitido)");
+            throw new Exception("Esquema inv\u00e1lido (solo un elemento de estudiantes permitido)");
         }
 
         // Chequear la existencia de un solo <dimensiones .../>
         NodeList dimensiones = parentDocument.getElementsByTagName("dimensiones");
 
         if (dimensiones.getLength() != 1) {
-            throw new Exception("Esquema inválido (solo un elemento de dimensiones permitido)");
+            throw new Exception("Esquema inv\u00e1lido (solo un elemento de dimensiones permitido)");
         }
         else if (dimensiones.item(0).getParentNode() != estudiantes.item(0)) {
-            throw new Exception("Esquema inválido (dimensiones no es padre del nodo estudiantes)");
+            throw new Exception("Esquema inv\u00e1lido (dimensiones no es padre del nodo estudiantes)");
         }
 
         // Obtener dimensiones de la tabla
@@ -196,21 +196,21 @@ public class NotasTableModel extends AbstractTableModel {
             // Crear notasTableModel a partir de dichas dimensiones
             notasTableModel = new NotasTableModel(numEstudiantes, numMaterias);
         } catch (Exception e) {
-            throw new Exception("Esquema inválido (Las dimensiones no son enteros positivos)");
+            throw new Exception("Esquema inv\u00e1lido (Las dimensiones no son enteros positivos)");
         }
 
         // Verificar la validez del número de estudiantes en dimensiones
         NodeList estudiantesNodes = parentDocument.getElementsByTagName("estudiante");
 
         if (estudiantesNodes.getLength() != notasTableModel.getRowCount()) {
-            throw new Exception("Esquema inválido (El número de estudiantes en dimensiones no concuerdan con el número de estudiantes en el archivo)");
+            throw new Exception("Esquema inv\u00e1lido (El n\u00famero de estudiantes en dimensiones no concuerdan con el n\u00famero de estudiantes en el archivo)");
         }
 
         // Verificar la validez del número de calificaciones por estudiante en dimensiones (n*m)
         NodeList calificacionesNodes = parentDocument.getElementsByTagName("calificacion");
 
         if (calificacionesNodes.getLength() != notasTableModel.getRowCount() *notasTableModel.nombreMateria.length) {
-                throw new Exception("Esquema inválido (El número de materias en dimensiones no concuerdan con el número de calificaciones por estudiante)");
+                throw new Exception("Esquema inv\u00e1lido (El n\u00famero de materias en dimensiones no concuerdan con el n\u00famero de calificaciones por estudiante)");
         }
 
         int col = 0;
@@ -218,7 +218,7 @@ public class NotasTableModel extends AbstractTableModel {
         // Rellenar valores de la tabla
         for (int i = 0; i < estudiantesNodes.getLength(); i++) {
             if (estudiantesNodes.item(i).getParentNode() != estudiantes.item(0)) {
-                throw new Exception("Esquema inválido (estudiante no es padre del nodo estudiantes)");
+                throw new Exception("Esquema inv\u00e1lido (estudiante no es padre del nodo estudiantes)");
             }
 
             // Obtener nodo de estudiante
@@ -257,7 +257,7 @@ public class NotasTableModel extends AbstractTableModel {
                             notasTableModel.setValueAt(calificacion, i, col);
                         } catch (Exception e) {
                             throw new Exception(
-                                String.format("Esquema inválido (Error en calificacion %d del estudiante %d)", col, i + 1));
+                                String.format("Esquema inv\u00e1lido (Error en calificaci\u00f3n %d del estudiante %d)", col, i + 1));
                         }
                         break;
                 }

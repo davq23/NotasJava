@@ -73,7 +73,7 @@ public class XMLController implements Runnable {
         try {
             // Chequear que se haya seleccionado un archivo
             if (fileChosen == null) {
-                throw new Exception("Ningún archivo seleccionado");
+                throw new Exception("Ning\u00fan archivo seleccionado");
             }
 
             // Crear un DOMBuilder Factory
