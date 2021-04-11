@@ -16,17 +16,19 @@ public class NotasTableModel extends AbstractTableModel {
     private static final long serialVersionUID = 1L;
 
     private String[] nombreEstudiante;
+    private String[] apellidoEstudiante;
     private String[] nombreMateria;
     private double[][] calificaciones;
 
 
     // Revisar si la ubicación en la tabla es válida
     private boolean esLocacionValida(int rowIndex, int columnIndex) {
-        return rowIndex < nombreEstudiante.length && columnIndex < nombreMateria.length + 1;
+        return rowIndex < nombreEstudiante.length && columnIndex < nombreMateria.length + 2;
     }
 
     public NotasTableModel(int numEstudiantes, int numCalificaciones) {
         nombreEstudiante = new String[numEstudiantes];
+        apellidoEstudiante = new String[numEstudiantes];
         nombreMateria = new String[numCalificaciones];
 
         calificaciones = new double[numEstudiantes][numCalificaciones];
@@ -43,22 +45,27 @@ public class NotasTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return calificaciones[0].length + 1;
+        return calificaciones[0].length + 2;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
         if (columnIndex == 0) {
-            return "Alumno";
+            return "Nombre";
         }
 
-        return nombreMateria[columnIndex - 1];
+        if (columnIndex == 1) {
+            return "Apellido";
+        }
+
+        return nombreMateria[columnIndex - 2];
     }
     
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch(columnIndex) {
             case 0:
+            case 1:
                 return String.class;
         }
 
@@ -68,10 +75,13 @@ public class NotasTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (esLocacionValida(rowIndex, columnIndex)) {
-            if (columnIndex == 0) {
-                return nombreEstudiante[rowIndex];
-            } else {
-                return calificaciones[rowIndex][columnIndex - 1];
+            switch(columnIndex) {
+                case 0:
+                    return nombreEstudiante[rowIndex];
+                case 1:
+                    return apellidoEstudiante[rowIndex];    
+                default:
+                    return calificaciones[rowIndex][columnIndex - 2];
             }
         }
 
@@ -90,9 +100,12 @@ public class NotasTableModel extends AbstractTableModel {
                 case 0:
                     nombreEstudiante[rowIndex] = (String)value;
                     break;
+                case 1:
+                    apellidoEstudiante[rowIndex] = (String)value;
+                    break;
                 default:
                     if (esCalificacionValida((Double)value)) {
-                        calificaciones[rowIndex][columnIndex - 1] = (Double)value;
+                        calificaciones[rowIndex][columnIndex - 2] = (Double)value;
                     }
             }
         } catch(Exception e) {
@@ -123,6 +136,9 @@ public class NotasTableModel extends AbstractTableModel {
             // Nombre de estudiante
             Element nombrElement = parentDocument.createElement("nombre");
             nombrElement.setTextContent(nombreEstudiante[i]);
+            // Nombre de estudiante
+            Element apellidoElement = parentDocument.createElement("apellido");
+            apellidoElement.setTextContent(apellidoEstudiante[i]);
 
 
             // Calificaciones de estudiante
@@ -136,8 +152,9 @@ public class NotasTableModel extends AbstractTableModel {
                 fragment.appendChild(calificacionElement);
             }
 
-            // Agregar nombre y calificaciones
+            // Agregar nombre, apellido y calificaciones
             estudianteElement.appendChild(nombrElement);
+            estudianteElement.appendChild(apellidoElement);
             estudianteElement.appendChild(fragment);
 
             // Agregar estudiante al fragmento princiapl
@@ -222,7 +239,11 @@ public class NotasTableModel extends AbstractTableModel {
                     case 0:
                         notasTableModel.setValueAt(children.item(j).getTextContent(), i, col);
                         break;
-                
+
+                    case 1: 
+                        notasTableModel.setValueAt(children.item(j).getTextContent(), i, col);
+                        break;
+
                     // Calificación de estudiante
                     default:
                         try {
