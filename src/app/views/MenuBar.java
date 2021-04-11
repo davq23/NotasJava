@@ -1,4 +1,4 @@
-package views;
+package app.views;
 
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,10 +9,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import controllers.XMLController;
-
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
+
+import app.controllers.XMLController;
 
 public class MenuBar extends JMenuBar {
 

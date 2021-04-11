@@ -1,4 +1,4 @@
-package controllers;
+package app.controllers;
 
 import java.io.File;
 
@@ -16,7 +16,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
 
-import models.NotasTableModel;
+import app.models.NotasTableModel;
 
 public class XMLController implements Runnable {
     // Propiedades

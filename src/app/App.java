@@ -1,3 +1,5 @@
+package app;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,10 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import controllers.CheckEnteroDocumentListener;
-import controllers.XMLController;
-import models.NotasTableModel;
-import views.MenuBar;
+import app.controllers.CheckEnteroDocumentListener;
+import app.controllers.XMLController;
+import app.models.NotasTableModel;
+import app.views.MenuBar;
 
 public class App extends JFrame implements ActionListener {
     /**
@@ -90,8 +92,6 @@ public class App extends JFrame implements ActionListener {
 
         // Inicializar XMLController
         xmlController = new XMLController(this);
-
-        // scrollPane.setVisible(true);
 
         add(scrollPane);
 

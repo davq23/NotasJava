@@ -1,4 +1,4 @@
-package controllers;
+package app.controllers;
 
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
