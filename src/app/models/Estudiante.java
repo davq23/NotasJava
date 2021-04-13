@@ -36,7 +36,7 @@ public class Estudiante implements Comparable<Estudiante> {
     }
 
     public String toString() {
-        return String.format("%s %s (%f)", (nombre.compareTo("") != 0 ? nombre : "(?)"), 
+        return String.format("%s %s", (nombre.compareTo("") != 0 ? nombre : "(?)"), 
             (apellido.compareTo("") != 0 ? apellido : "(?)"), promedio);
     }
 
