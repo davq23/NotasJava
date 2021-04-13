@@ -24,6 +24,7 @@ import app.views.TablaPromedioEstudiantes;
 import app.views.TablaPromedioMaterias;
 import app.views.ListaOrdenadaEstudiantes;
 import app.views.MenuBar;
+import app.views.PromedioSeccion;
 
 public class App extends JFrame implements ActionListener {
     /**
@@ -65,9 +66,10 @@ public class App extends JFrame implements ActionListener {
     private NotasTableModel notasTableModel;
 
     // Vistas
-    private MenuBar menuBar;
-    private TablaPromedioEstudiantes tablaPromedioEstudiantes;
     private ListaOrdenadaEstudiantes listaOrdenadaEstudiantes;
+    private MenuBar menuBar;
+    private PromedioSeccion promedioSeccion;
+    private TablaPromedioEstudiantes tablaPromedioEstudiantes;
     private TablaPromedioMaterias tablaPromedioMaterias;
 
     // Components del diálogo inicial
@@ -116,6 +118,7 @@ public class App extends JFrame implements ActionListener {
         tablaPromedioEstudiantes = new TablaPromedioEstudiantes(this, notasTableModel);
         tablaPromedioMaterias = new TablaPromedioMaterias(this, notasTableModel);
         listaOrdenadaEstudiantes = new ListaOrdenadaEstudiantes(this, notasTableModel);
+        promedioSeccion = new PromedioSeccion(this, notasTableModel);
     }
 
     public void setMenu() {

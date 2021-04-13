@@ -36,4 +36,20 @@ public class PromediosController {
 
         return promedios;
     }
+
+    public static double getPromedioDeSeccion(double[][] calificaciones) {
+        double promedio = 0;
+
+        // Calificaciones por estudiante (por fila)
+        double[] promediosPorEstudiante = PromediosController.getPromediosPorEstudiante(calificaciones);
+
+        // Calcular promedio de los promedios por estudiante
+        for (int i = 0; i < promediosPorEstudiante.length; i++) {
+            promedio += promediosPorEstudiante[i];
+        }
+
+        promedio /= promediosPorEstudiante.length;
+
+        return promedio;
+    }
 }
