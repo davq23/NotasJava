@@ -31,7 +31,7 @@ public class PromediosController {
             }
 
             // División por número de notas
-            promedios[i] /= calificaciones[0].length;
+            promedios[i] /= calificaciones.length;
         }
 
         return promedios;

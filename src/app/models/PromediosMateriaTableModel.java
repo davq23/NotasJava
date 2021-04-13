@@ -38,7 +38,7 @@ public class PromediosMateriaTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 0;
+        return 2;
     }
 
     @Override

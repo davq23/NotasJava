@@ -40,10 +40,10 @@ public class TablaPromedioMaterias extends JDialog {
         add(scrollPane);
 
         // Establecer tamaño de la ventana
-        setSize(400, 600);
+        pack();
 
         // Deshabilitar y habilitar la ventana principal de la aplicación mientras esta ventana esté abierta
-        this.setModalityType(DEFAULT_MODALITY_TYPE);
+        setModalityType(DEFAULT_MODALITY_TYPE);
 
     }
 
