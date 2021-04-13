@@ -20,7 +20,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import app.controllers.CheckEnteroDocumentListener;
 import app.controllers.XMLController;
 import app.models.NotasTableModel;
-import app.views.ListaEstudiantes;
+import app.views.TablaPromedioEstudiantes;
+import app.views.ListaOrdenadaEstudiantes;
 import app.views.MenuBar;
 
 public class App extends JFrame implements ActionListener {
@@ -64,7 +65,8 @@ public class App extends JFrame implements ActionListener {
 
     // Vistas
     private MenuBar menuBar;
-    private ListaEstudiantes listaEstudiantes;
+    private TablaPromedioEstudiantes tablaPromedioEstudiantes;
+    private ListaOrdenadaEstudiantes listaOrdenadaEstudiantes;
 
     // Components del diálogo inicial
     private final JComponent[] componentesDialogo = new JComponent[] { numEstudiantesLabel, numEstudiantesTextField,
@@ -109,12 +111,13 @@ public class App extends JFrame implements ActionListener {
         xmlController.setNotasTableModel(notasTableModel);
 
         // Inicializar ListaEstudiantes
-        listaEstudiantes = new ListaEstudiantes(this, notasTableModel);
+        tablaPromedioEstudiantes = new TablaPromedioEstudiantes(this, notasTableModel);
+        listaOrdenadaEstudiantes = new ListaOrdenadaEstudiantes(this, notasTableModel);
     }
 
     public void setMenu() {
         // Inicializar MenuBar
-        menuBar = new MenuBar(xmlController, jFileChooser, listaEstudiantes);
+        menuBar = new MenuBar(xmlController, jFileChooser, notasTableModel, tablaPromedioEstudiantes, listaOrdenadaEstudiantes);
 
         // Agregar MenuBar
         setJMenuBar(menuBar);

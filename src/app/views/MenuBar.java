@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 
 import app.controllers.XMLController;
+import app.models.NotasTableModel;
 
 public class MenuBar extends JMenuBar {
 
@@ -26,27 +27,59 @@ public class MenuBar extends JMenuBar {
     private JMenu accionesMenu = new JMenu("Acciones");
 
     private JMenuItem exportarXMLMenuItem = new JMenuItem("XML");
-    private JMenuItem listaEstudiantesMenuItem = new JMenuItem("Lista de Estudiantes");
+    private JMenuItem promediosEstudiantesMenuItem = new JMenuItem("Promedios por Estudiante");
+    private JMenuItem listaEstudiantesMenuItem = new JMenuItem("Lista de estudiantes por promedio");
 
     private JFileChooser jFileChooser;
-    private ListaEstudiantes listaEstudiantes;
+    private TablaPromedioEstudiantes tablaEstudiantes;
+    private ListaOrdenadaEstudiantes listaOrdenadaEstudiantes;
+    private NotasTableModel notasTableModel;
 
-    public MenuBar(XMLController xmlController, JFileChooser jFileChooser, ListaEstudiantes listaEstudiantes) {
-        // Agregar MenuItems al menú
-        exportarMenu.add(exportarXMLMenuItem);
-        accionesMenu.add(listaEstudiantesMenuItem);
-
+    public MenuBar(XMLController xmlController, JFileChooser jFileChooser, 
+        NotasTableModel notasTableModel, TablaPromedioEstudiantes tablaEstudiantes,
+        ListaOrdenadaEstudiantes listaOrdenadaEstudiantes) {
+            
         this.jFileChooser = jFileChooser;
-        this.listaEstudiantes = listaEstudiantes;
+        this.tablaEstudiantes = tablaEstudiantes;
+        this.listaOrdenadaEstudiantes = listaOrdenadaEstudiantes;
+        this.notasTableModel = notasTableModel;
+
+         // Agregar MenuItems al menú
+         exportarMenu.add(exportarXMLMenuItem);
+         accionesMenu.add(promediosEstudiantesMenuItem);
+         accionesMenu.add(listaEstudiantesMenuItem);
 
         MenuBar menuBar = this;
 
-        // Acción de abrir la ventana de lista de estudiantes
+        // Lista ordenada de estudiantes
         listaEstudiantesMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listaEstudiantes.actualizarDatos();
-                listaEstudiantes.setVisible(true);
+                // No permitir si no sea han rellenado todos los datos
+                if (notasTableModel.hasEmptyNombreApellido()) {
+                    JOptionPane.showMessageDialog(menuBar, "No se puede realizar esta acción con datos incompletos", 
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                listaOrdenadaEstudiantes.actualizarDatos();
+                listaOrdenadaEstudiantes.setVisible(true);
+            }
+        });
+
+        // Tabla de promedio por estudiante
+        promediosEstudiantesMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // No permitir si no sea han rellenado todos los datos
+                if (notasTableModel.hasEmptyNombreApellido()) {
+                    JOptionPane.showMessageDialog(menuBar, "No se puede realizar esta acción con datos incompletos", 
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                tablaEstudiantes.actualizarDatos();
+                tablaEstudiantes.setVisible(true);
             }
         });
 

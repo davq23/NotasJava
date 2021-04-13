@@ -35,6 +35,12 @@ public class NotasTableModel extends AbstractTableModel {
         for (int i = 0; i < numCalificaciones; i++) {
             nombresMateria[i] = super.getColumnName(i);
         }
+
+        // Inicializar todos los nombres y apellidos
+        for (int i = 0; i < nombresEstudiante.length; i++) {
+            nombresEstudiante[i] = "";
+            apellidosEstudiante[i] = "";
+        }
     }
 
     // Getters
@@ -131,6 +137,17 @@ public class NotasTableModel extends AbstractTableModel {
 
     public static boolean esCalificacionValida(double calificacion) {
         return calificacion >= 0 && calificacion <= 20;
+    }
+
+    // Chequear que la tabla tenga estudiantes válidos
+    public boolean hasEmptyNombreApellido() {
+        for (int i = 0; i < this.nombresEstudiante.length; i++) {
+            if (nombresEstudiante[i].compareTo("") == 0 || apellidosEstudiante[i].compareTo("") == 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // Serializar NotasTableModel en forma de un fragmento de documento XML
