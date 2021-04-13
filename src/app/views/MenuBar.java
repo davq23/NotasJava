@@ -23,15 +23,31 @@ public class MenuBar extends JMenuBar {
 
     // Elementos de swing
     private JMenu exportarMenu = new JMenu("Exportar datos");
-    private JMenuItem exportarXMLMenuItem = new JMenuItem("XML");
-    private JFileChooser jFileChooser;
+    private JMenu accionesMenu = new JMenu("Acciones");
 
-    public MenuBar(XMLController xmlController, JFileChooser jFileChooser) {
+    private JMenuItem exportarXMLMenuItem = new JMenuItem("XML");
+    private JMenuItem listaEstudiantesMenuItem = new JMenuItem("Lista de Estudiantes");
+
+    private JFileChooser jFileChooser;
+    private ListaEstudiantes listaEstudiantes;
+
+    public MenuBar(XMLController xmlController, JFileChooser jFileChooser, ListaEstudiantes listaEstudiantes) {
         exportarMenu.add(exportarXMLMenuItem);
+        accionesMenu.add(listaEstudiantesMenuItem);
 
         this.jFileChooser = jFileChooser;
+        this.listaEstudiantes = listaEstudiantes;
 
         MenuBar menuBar = this;
+
+        // Acción de abrir la ventana de lista de estudiantes
+        listaEstudiantesMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listaEstudiantes.actualizarDatos();
+                listaEstudiantes.setVisible(true);
+            }
+        });
 
         // Acción de exportar a XML
         exportarXMLMenuItem.addActionListener(new ActionListener() {
@@ -80,5 +96,6 @@ public class MenuBar extends JMenuBar {
         });
 
         add(exportarMenu);
+        add(accionesMenu);
     }
 }

@@ -18,8 +18,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import app.controllers.CheckEnteroDocumentListener;
+import app.controllers.DisableParentWindowAdapter;
 import app.controllers.XMLController;
 import app.models.NotasTableModel;
+import app.views.ListaEstudiantes;
 import app.views.MenuBar;
 
 public class App extends JFrame implements ActionListener {
@@ -33,6 +35,7 @@ public class App extends JFrame implements ActionListener {
 
     // Controladores
     private XMLController xmlController;
+    private DisableParentWindowAdapter disableParentWindowAdapter;
 
     // Archivo XML importado
     private File fileChosen;
@@ -63,6 +66,7 @@ public class App extends JFrame implements ActionListener {
 
     // Vistas
     private MenuBar menuBar;
+    private ListaEstudiantes listaEstudiantes;
 
     // Components del diálogo inicial
     private final JComponent[] componentesDialogo = new JComponent[] { numEstudiantesLabel, numEstudiantesTextField,
@@ -74,6 +78,9 @@ public class App extends JFrame implements ActionListener {
         // Solo permitir números enteros positivos
         numEstudiantesTextField.getDocument().addDocumentListener(checkEnteroListener);
         numMateriasTextField.getDocument().addDocumentListener(checkEnteroListener);
+
+        // Inicializar WindowAdapter con esta ventana como ventan principal
+        disableParentWindowAdapter = new DisableParentWindowAdapter(this);
 
         // Hacer el textfield de archivo no editable
         fileNameTextField.setEditable(false);
@@ -105,11 +112,14 @@ public class App extends JFrame implements ActionListener {
 
         // Inicializar XML Controller
         xmlController.setNotasTableModel(notasTableModel);
+
+        // Inicializar ListaEstudiantes
+        listaEstudiantes = new ListaEstudiantes(notasTableModel, disableParentWindowAdapter);
     }
 
     public void setMenu() {
         // Inicializar MenuBar
-        menuBar = new MenuBar(xmlController, jFileChooser);
+        menuBar = new MenuBar(xmlController, jFileChooser, listaEstudiantes);
 
         // Agregar MenuBar
         setJMenuBar(menuBar);
