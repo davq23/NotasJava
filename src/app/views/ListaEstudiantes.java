@@ -49,7 +49,7 @@ public class ListaEstudiantes extends JDialog {
         // Especificar bajo qué columna se reorganizarán las filas
         sortKeys = new ArrayList<>();
         sortKeys.add(new RowSorter.SortKey(ListaEstudiantesTableModel.PROMEDIO_COL, SortOrder.DESCENDING));
-        
+
         // Crear tabla y hacerla no autoajustable
         estudiantesLisTable = new JTable();
         estudiantesLisTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -85,6 +85,7 @@ public class ListaEstudiantes extends JDialog {
         estudiantesLisTable.setRowSorter(sorter);
         estudiantesLisTable.repaint();
 
+        // Deshabilitar sorteo manual de JTable
         sorter.setSortable(ListaEstudiantesTableModel.NOMBRE_COL, false);
         sorter.setSortable(ListaEstudiantesTableModel.APELLIDO_COL, false);
         sorter.setSortable(ListaEstudiantesTableModel.PROMEDIO_COL, false);
