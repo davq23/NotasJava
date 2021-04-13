@@ -66,14 +66,14 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // No permitir si no sea han rellenado todos los datos
-                if (notasTableModel.hasEmptyNombreApellido()) {
+                if (menuBar.notasTableModel.hasEmptyNombreApellido()) {
                     JOptionPane.showMessageDialog(menuBar, "No se puede realizar esta acci\u00f3n con datos incompletos", 
                         "ERROR", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                tablaPromedioEstudiantes.actualizarDatos();
-                tablaPromedioEstudiantes.setVisible(true);
+                menuBar.tablaPromedioEstudiantes.actualizarDatos();
+                menuBar.tablaPromedioEstudiantes.setVisible(true);
             }
         });
 
@@ -82,14 +82,14 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // No permitir si no sea han rellenado todos los datos
-                if (notasTableModel.hasEmptyNombreApellido()) {
+                if (menuBar.notasTableModel.hasEmptyNombreApellido()) {
                     JOptionPane.showMessageDialog(menuBar, "No se puede realizar esta acci\u00f3n con datos incompletos", 
                         "ERROR", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                tablaPromedioMaterias.actualizarDatos();
-                tablaPromedioMaterias.setVisible(true);
+                menuBar.tablaPromedioMaterias.actualizarDatos();
+                menuBar.tablaPromedioMaterias.setVisible(true);
             }
         });
 
@@ -98,14 +98,14 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // No permitir si no sea han rellenado todos los datos
-                if (notasTableModel.hasEmptyNombreApellido()) {
+                if (menuBar.notasTableModel.hasEmptyNombreApellido()) {
                     JOptionPane.showMessageDialog(menuBar, "No se puede realizar esta acci\u00f3n con datos incompletos", 
                         "ERROR", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                promedioSeccion.actualizarDatos();
-                promedioSeccion.setVisible(true);
+                menuBar.promedioSeccion.actualizarDatos();
+                menuBar.promedioSeccion.setVisible(true);
             }
         });
 
@@ -115,14 +115,14 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // No permitir si no sea han rellenado todos los datos
-                if (notasTableModel.hasEmptyNombreApellido()) {
+                if (menuBar.notasTableModel.hasEmptyNombreApellido()) {
                     JOptionPane.showMessageDialog(menuBar, "No se puede realizar esta acci\u00f3n con datos incompletos", 
                         "ERROR", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                listaOrdenadaEstudiantes.actualizarDatos();
-                listaOrdenadaEstudiantes.setVisible(true);
+                menuBar.listaOrdenadaEstudiantes.actualizarDatos();
+                menuBar.listaOrdenadaEstudiantes.setVisible(true);
             }
         });
 
