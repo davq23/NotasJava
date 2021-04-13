@@ -15,32 +15,48 @@ public class NotasTableModel extends AbstractTableModel {
      */
     private static final long serialVersionUID = 1L;
 
-    private String[] nombreEstudiante;
-    private String[] apellidoEstudiante;
-    private String[] nombreMateria;
+    private String[] nombresEstudiante;
+    private String[] apellidosEstudiante;
+    private String[] nombresMateria;
     private double[][] calificaciones;
-
 
     // Revisar si la ubicación en la tabla es válida
     private boolean esLocacionValida(int rowIndex, int columnIndex) {
-        return rowIndex < nombreEstudiante.length && columnIndex < nombreMateria.length + 2;
+        return rowIndex < nombresEstudiante.length && columnIndex < nombresMateria.length + 2;
     }
 
     public NotasTableModel(int numEstudiantes, int numCalificaciones) {
-        nombreEstudiante = new String[numEstudiantes];
-        apellidoEstudiante = new String[numEstudiantes];
-        nombreMateria = new String[numCalificaciones];
+        nombresEstudiante = new String[numEstudiantes];
+        apellidosEstudiante = new String[numEstudiantes];
+        nombresMateria = new String[numCalificaciones];
 
         calificaciones = new double[numEstudiantes][numCalificaciones];
 
         for (int i = 0; i < numCalificaciones; i++) {
-            nombreMateria[i] = super.getColumnName(i);
+            nombresMateria[i] = super.getColumnName(i);
         }
+    }
+
+    // Getters
+    public double[][] getCalificaciones() {
+        return calificaciones;
+    }
+
+    public String[] getNombresEstudiante() {
+        return nombresEstudiante;
+    }
+
+    public String[] getApellidosEstudiante() {
+        return apellidosEstudiante;
+    }
+
+    public String[] getNombresMateria() {
+        return nombresMateria;
     }
 
     @Override
     public int getRowCount() {
-        return nombreEstudiante.length;
+        return nombresEstudiante.length;
     }
 
     @Override
@@ -58,7 +74,7 @@ public class NotasTableModel extends AbstractTableModel {
             return "Apellido";
         }
 
-        return nombreMateria[columnIndex - 2];
+        return nombresMateria[columnIndex - 2];
     }
     
     @Override
@@ -77,9 +93,9 @@ public class NotasTableModel extends AbstractTableModel {
         if (esLocacionValida(rowIndex, columnIndex)) {
             switch(columnIndex) {
                 case 0:
-                    return nombreEstudiante[rowIndex];
+                    return nombresEstudiante[rowIndex];
                 case 1:
-                    return apellidoEstudiante[rowIndex];    
+                    return apellidosEstudiante[rowIndex];    
                 default:
                     return calificaciones[rowIndex][columnIndex - 2];
             }
@@ -98,10 +114,10 @@ public class NotasTableModel extends AbstractTableModel {
         try {
             switch(columnIndex) {
                 case 0:
-                    nombreEstudiante[rowIndex] = (String)value;
+                    nombresEstudiante[rowIndex] = (String)value;
                     break;
                 case 1:
-                    apellidoEstudiante[rowIndex] = (String)value;
+                    apellidosEstudiante[rowIndex] = (String)value;
                     break;
                 default:
                     if (esCalificacionValida((Double)value)) {
@@ -124,27 +140,27 @@ public class NotasTableModel extends AbstractTableModel {
 
         // Dimensiones
         Element dimensionesElement = parentDocument.createElement("dimensiones");
-        dimensionesElement.setAttribute("materias", String.valueOf(nombreMateria.length));
-        dimensionesElement.setAttribute("estudiantes", String.valueOf(nombreEstudiante.length));
+        dimensionesElement.setAttribute("materias", String.valueOf(nombresMateria.length));
+        dimensionesElement.setAttribute("estudiantes", String.valueOf(nombresEstudiante.length));
 
         mainFragment.appendChild(dimensionesElement);
 
-        for (int i = 0; i < nombreEstudiante.length; i++) {
+        for (int i = 0; i < nombresEstudiante.length; i++) {
             // Estudiante
             Element estudianteElement = parentDocument.createElement("estudiante");
 
             // Nombre de estudiante
             Element nombrElement = parentDocument.createElement("nombre");
-            nombrElement.setTextContent(nombreEstudiante[i]);
+            nombrElement.setTextContent(nombresEstudiante[i]);
             // Nombre de estudiante
             Element apellidoElement = parentDocument.createElement("apellido");
-            apellidoElement.setTextContent(apellidoEstudiante[i]);
+            apellidoElement.setTextContent(apellidosEstudiante[i]);
 
 
             // Calificaciones de estudiante
             DocumentFragment fragment = parentDocument.createDocumentFragment();
 
-            for (int j = 0; j < nombreMateria.length; j++) {
+            for (int j = 0; j < nombresMateria.length; j++) {
                 Element calificacionElement = parentDocument.createElement("calificacion");
 
                 calificacionElement.setTextContent(String.valueOf(calificaciones[i][j]));
@@ -209,7 +225,7 @@ public class NotasTableModel extends AbstractTableModel {
         // Verificar la validez del número de calificaciones por estudiante en dimensiones (n*m)
         NodeList calificacionesNodes = parentDocument.getElementsByTagName("calificacion");
 
-        if (calificacionesNodes.getLength() != notasTableModel.getRowCount() *notasTableModel.nombreMateria.length) {
+        if (calificacionesNodes.getLength() != notasTableModel.getRowCount() *notasTableModel.nombresMateria.length) {
                 throw new Exception("Esquema inv\u00e1lido (El n\u00famero de materias en dimensiones no concuerdan con el n\u00famero de calificaciones por estudiante)");
         }
 
