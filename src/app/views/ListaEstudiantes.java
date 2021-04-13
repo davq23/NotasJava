@@ -50,6 +50,8 @@ public class ListaEstudiantes extends JFrame {
         listaEstudiantesTableModel.setPromedios(promedios);
         listaEstudiantesTableModel.setNombres(notasTableModel.getNombresEstudiante());
         listaEstudiantesTableModel.setApellidos(notasTableModel.getApellidosEstudiante());
+        
+        estudiantesLisTable.setModel(listaEstudiantesTableModel);
 
         estudiantesLisTable.repaint();
     }
