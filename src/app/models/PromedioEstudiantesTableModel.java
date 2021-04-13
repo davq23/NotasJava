@@ -2,7 +2,7 @@ package app.models;
 
 import javax.swing.table.AbstractTableModel;
 
-public class ListaEstudiantesTableModel extends AbstractTableModel {
+public class PromedioEstudiantesTableModel extends AbstractTableModel {
 
     /**
      *

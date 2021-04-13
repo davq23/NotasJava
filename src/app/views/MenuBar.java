@@ -26,30 +26,68 @@ public class MenuBar extends JMenuBar {
     private JMenu exportarMenu = new JMenu("Exportar datos");
     private JMenu accionesMenu = new JMenu("Acciones");
 
-    private JMenuItem exportarXMLMenuItem = new JMenuItem("XML");
+    private JMenuItem exportarXMLMenuItem = new JMenuItem("Exportar a XML");
     private JMenuItem promediosEstudiantesMenuItem = new JMenuItem("Promedios por Estudiante");
+    private JMenuItem promediosMateriasMenuItem = new JMenuItem("Promedios por Materia");
     private JMenuItem listaEstudiantesMenuItem = new JMenuItem("Lista de estudiantes por promedio");
 
     private JFileChooser jFileChooser;
-    private TablaPromedioEstudiantes tablaEstudiantes;
+    private TablaPromedioEstudiantes tablaPromedioEstudiantes;
+    private TablaPromedioMaterias tablaPromedioMaterias;
     private ListaOrdenadaEstudiantes listaOrdenadaEstudiantes;
     private NotasTableModel notasTableModel;
 
     public MenuBar(XMLController xmlController, JFileChooser jFileChooser, 
-        NotasTableModel notasTableModel, TablaPromedioEstudiantes tablaEstudiantes,
+        NotasTableModel notasTableModel, TablaPromedioEstudiantes tablaPromedioEstudiantes, 
+        TablaPromedioMaterias tablaPromedioMaterias,
         ListaOrdenadaEstudiantes listaOrdenadaEstudiantes) {
             
         this.jFileChooser = jFileChooser;
-        this.tablaEstudiantes = tablaEstudiantes;
+        this.tablaPromedioEstudiantes = tablaPromedioEstudiantes;
         this.listaOrdenadaEstudiantes = listaOrdenadaEstudiantes;
         this.notasTableModel = notasTableModel;
+        this.tablaPromedioMaterias = tablaPromedioMaterias;
 
          // Agregar MenuItems al menú
          exportarMenu.add(exportarXMLMenuItem);
          accionesMenu.add(promediosEstudiantesMenuItem);
+         accionesMenu.add(promediosMateriasMenuItem);
          accionesMenu.add(listaEstudiantesMenuItem);
 
         MenuBar menuBar = this;
+
+         // Tabla de promedio por estudiante
+         promediosEstudiantesMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // No permitir si no sea han rellenado todos los datos
+                if (notasTableModel.hasEmptyNombreApellido()) {
+                    JOptionPane.showMessageDialog(menuBar, "No se puede realizar esta acción con datos incompletos", 
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                tablaPromedioEstudiantes.actualizarDatos();
+                tablaPromedioEstudiantes.setVisible(true);
+            }
+        });
+
+         // Tabla de promedio por materia
+         promediosMateriasMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // No permitir si no sea han rellenado todos los datos
+                if (notasTableModel.hasEmptyNombreApellido()) {
+                    JOptionPane.showMessageDialog(menuBar, "No se puede realizar esta acción con datos incompletos", 
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                tablaPromedioMaterias.actualizarDatos();
+                tablaPromedioMaterias.setVisible(true);
+            }
+        });
+
 
         // Lista ordenada de estudiantes
         listaEstudiantesMenuItem.addActionListener(new ActionListener() {
@@ -64,22 +102,6 @@ public class MenuBar extends JMenuBar {
 
                 listaOrdenadaEstudiantes.actualizarDatos();
                 listaOrdenadaEstudiantes.setVisible(true);
-            }
-        });
-
-        // Tabla de promedio por estudiante
-        promediosEstudiantesMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // No permitir si no sea han rellenado todos los datos
-                if (notasTableModel.hasEmptyNombreApellido()) {
-                    JOptionPane.showMessageDialog(menuBar, "No se puede realizar esta acción con datos incompletos", 
-                        "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                tablaEstudiantes.actualizarDatos();
-                tablaEstudiantes.setVisible(true);
             }
         });
 

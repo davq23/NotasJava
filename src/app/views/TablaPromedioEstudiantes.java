@@ -7,7 +7,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import app.controllers.PromediosController;
-import app.models.ListaEstudiantesTableModel;
+import app.models.PromedioEstudiantesTableModel;
 import app.models.NotasTableModel;
 
 public class TablaPromedioEstudiantes extends JDialog {
@@ -20,7 +20,7 @@ public class TablaPromedioEstudiantes extends JDialog {
     // Componentes de swing
     private JTable estudiantesLisTable;
     private JScrollPane scrollPane;
-    private ListaEstudiantesTableModel listaEstudiantesTableModel;
+    private PromedioEstudiantesTableModel promedioEstudiantesTableModel;
 
 
     // Propiedades
@@ -33,7 +33,7 @@ public class TablaPromedioEstudiantes extends JDialog {
         this.notasTableModel = notasTableModel;
 
         // Crear modelo de tabla
-        listaEstudiantesTableModel = new ListaEstudiantesTableModel();
+        promedioEstudiantesTableModel = new PromedioEstudiantesTableModel();
 
         // Crear tabla y hacerla no autoajustable
         estudiantesLisTable = new JTable();
@@ -59,12 +59,12 @@ public class TablaPromedioEstudiantes extends JDialog {
         double[] promedios = PromediosController.getPromediosPorEstudiante(notasTableModel.getCalificaciones());
 
         // Establecer valores en el modelo de tabla
-        listaEstudiantesTableModel.setPromedios(promedios);
-        listaEstudiantesTableModel.setNombres(notasTableModel.getNombresEstudiante());
-        listaEstudiantesTableModel.setApellidos(notasTableModel.getApellidosEstudiante());
+        promedioEstudiantesTableModel.setPromedios(promedios);
+        promedioEstudiantesTableModel.setNombres(notasTableModel.getNombresEstudiante());
+        promedioEstudiantesTableModel.setApellidos(notasTableModel.getApellidosEstudiante());
         
         // Reestablecer modelo de JTable
-        estudiantesLisTable.setModel(listaEstudiantesTableModel);
+        estudiantesLisTable.setModel(promedioEstudiantesTableModel);
     }
     
 }
