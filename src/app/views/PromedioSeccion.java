@@ -25,7 +25,7 @@ public class PromedioSeccion extends JDialog {
 
 
     public PromedioSeccion(JFrame parent, NotasTableModel notasTableModel) {
-        super(parent, "Promedio Seccion");
+        super(parent, "Promedio por secci\u00f3n");
         
         this.notasTableModel = notasTableModel;
 
@@ -34,15 +34,16 @@ public class PromedioSeccion extends JDialog {
 
         add(promedioLabel);
 
+        
         // Establecer tamaño de la ventana
-        pack();
+        setSize(400, 200);
 
         // Deshabilitar y habilitar la ventana principal de la aplicación mientras esta ventana esté abierta
         setModalityType(DEFAULT_MODALITY_TYPE);
     }
 
 
-    public void mostrarPromedio() {
+    public void actualizarDatos() {
         // Calcular promedio de sección
         double promedio = PromediosController.getPromedioDeSeccion(notasTableModel.getCalificaciones());
 

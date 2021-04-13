@@ -124,7 +124,8 @@ public class App extends JFrame implements ActionListener {
     public void setMenu() {
         // Inicializar MenuBar
         menuBar = new MenuBar(xmlController, jFileChooser, notasTableModel, 
-            tablaPromedioEstudiantes, tablaPromedioMaterias, listaOrdenadaEstudiantes);
+            tablaPromedioEstudiantes, tablaPromedioMaterias, promedioSeccion,
+            listaOrdenadaEstudiantes);
 
         // Agregar MenuBar
         setJMenuBar(menuBar);
