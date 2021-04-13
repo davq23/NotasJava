@@ -32,6 +32,7 @@ public class MenuBar extends JMenuBar {
     private ListaEstudiantes listaEstudiantes;
 
     public MenuBar(XMLController xmlController, JFileChooser jFileChooser, ListaEstudiantes listaEstudiantes) {
+        // Agregar MenuItems al menú
         exportarMenu.add(exportarXMLMenuItem);
         accionesMenu.add(listaEstudiantesMenuItem);
 
