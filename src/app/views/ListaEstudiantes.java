@@ -33,6 +33,10 @@ public class ListaEstudiantes extends JFrame {
         this.notasTableModel = notasTableModel;
 
         listaEstudiantesTableModel = new ListaEstudiantesTableModel();
+        
+        estudiantesLisTable = new JTable();
+        
+        scrollPane = new JScrollPane(estudiantesLisTable);
     }
 
 
