@@ -1,15 +1,21 @@
 package app.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.table.TableRowSorter;
 
-import app.controllers.DisableParentWindowAdapter;
 import app.controllers.PromediosController;
 import app.models.ListaEstudiantesTableModel;
 import app.models.NotasTableModel;
 
-public class ListaEstudiantes extends JFrame {
+public class ListaEstudiantes extends JDialog {
 
     /**
      *
@@ -22,33 +28,44 @@ public class ListaEstudiantes extends JFrame {
     private JScrollPane scrollPane;
     private ListaEstudiantesTableModel listaEstudiantesTableModel;
 
+    private TableRowSorter<ListaEstudiantesTableModel> sorter;
+    List<RowSorter.SortKey> sortKeys;
+
     // Propiedades
     private NotasTableModel notasTableModel;
 
-    public ListaEstudiantes(NotasTableModel notasTableModel, DisableParentWindowAdapter disableParentWindowAdapter) {
-        super("Lista Estudiantes");
+
+    public ListaEstudiantes(JFrame parent, NotasTableModel notasTableModel) {
+        super(parent, "Lista de estudiantes");
         
         this.notasTableModel = notasTableModel;
 
         // Crear modelo de tabla
         listaEstudiantesTableModel = new ListaEstudiantesTableModel();
 
+        // Crear organizador de tabla
+        sorter = new TableRowSorter<>();
+
+        // Especificar bajo qué columna se reorganizarán las filas
+        sortKeys = new ArrayList<>();
+        sortKeys.add(new RowSorter.SortKey(ListaEstudiantesTableModel.PROMEDIO_COL, SortOrder.DESCENDING));
+
         // Crear tabla y hacerla no autoajustable
         estudiantesLisTable = new JTable();
         estudiantesLisTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         // Colocar la tabla en un scroll panel
-        scrollPane = new JScrollPane();
-        scrollPane.add(estudiantesLisTable);
+        scrollPane = new JScrollPane(estudiantesLisTable);
 
         // Agregar el scrollpanel
         add(scrollPane);
 
         // Establecer tamaño de la ventana
-        setSize(200, 400);
+        setSize(400, 600);
 
         // Deshabilitar y habilitar la ventana principal de la aplicación mientras esta ventana esté abierta
-        addWindowFocusListener(disableParentWindowAdapter);
+        this.setModalityType(DEFAULT_MODALITY_TYPE);
+
     }
 
 
@@ -63,7 +80,9 @@ public class ListaEstudiantes extends JFrame {
         
         estudiantesLisTable.setModel(listaEstudiantesTableModel);
 
-        estudiantesLisTable.setModel(listaEstudiantesTableModel);
+        sorter.setModel(listaEstudiantesTableModel);
+        sorter.setSortKeys(sortKeys);
+        estudiantesLisTable.setRowSorter(sorter);
         estudiantesLisTable.repaint();
     }
     

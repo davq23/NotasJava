@@ -13,6 +13,10 @@ public class ListaEstudiantesTableModel extends AbstractTableModel {
     private String[] apellidos;
     private double[] promedios;
 
+    public static final int NOMBRE_COL = 0;
+    public static final int APELLIDO_COL = 1;
+    public static final int PROMEDIO_COL = 2;
+
      // Revisar si la ubicación en la tabla es válida
     private boolean esLocacionValida(int rowIndex, int columnIndex) {
         return rowIndex < nombres.length && columnIndex < 3;

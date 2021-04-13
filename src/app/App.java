@@ -114,7 +114,7 @@ public class App extends JFrame implements ActionListener {
         xmlController.setNotasTableModel(notasTableModel);
 
         // Inicializar ListaEstudiantes
-        listaEstudiantes = new ListaEstudiantes(notasTableModel, disableParentWindowAdapter);
+        listaEstudiantes = new ListaEstudiantes(this, notasTableModel);
     }
 
     public void setMenu() {
