@@ -21,7 +21,7 @@ public class PromediosController {
 
     public static double[] getPromediosPorMateria(double[][] calificaciones) {
         // Calificaciones por materia (por columna)
-        double[] promedios = new double[calificaciones.length];
+        double[] promedios = new double[calificaciones[0].length];
     
         // Asumiendo igual número de columnas por fila
         for (int i = 0; i < calificaciones[0].length; i++) {
