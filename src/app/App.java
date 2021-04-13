@@ -18,7 +18,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import app.controllers.CheckEnteroDocumentListener;
-import app.controllers.DisableParentWindowAdapter;
 import app.controllers.XMLController;
 import app.models.NotasTableModel;
 import app.views.ListaEstudiantes;
@@ -35,7 +34,6 @@ public class App extends JFrame implements ActionListener {
 
     // Controladores
     private XMLController xmlController;
-    private DisableParentWindowAdapter disableParentWindowAdapter;
 
     // Archivo XML importado
     private File fileChosen;
@@ -78,9 +76,6 @@ public class App extends JFrame implements ActionListener {
         // Solo permitir números enteros positivos
         numEstudiantesTextField.getDocument().addDocumentListener(checkEnteroListener);
         numMateriasTextField.getDocument().addDocumentListener(checkEnteroListener);
-
-        // Inicializar WindowAdapter con esta ventana como ventan principal
-        disableParentWindowAdapter = new DisableParentWindowAdapter(this);
 
         // Hacer el textfield de archivo no editable
         fileNameTextField.setEditable(false);
