@@ -78,12 +78,15 @@ public class ListaEstudiantes extends JDialog {
         listaEstudiantesTableModel.setNombres(notasTableModel.getNombresEstudiante());
         listaEstudiantesTableModel.setApellidos(notasTableModel.getApellidosEstudiante());
         
+        // Reestablecer modelo de JTable
         estudiantesLisTable.setModel(listaEstudiantesTableModel);
 
+        // Establecer sorteo
         sorter.setModel(listaEstudiantesTableModel);
         sorter.setSortKeys(sortKeys);
         estudiantesLisTable.setRowSorter(sorter);
-        estudiantesLisTable.repaint();
+
+        // estudiantesLisTable.repaint();
 
         // Deshabilitar sorteo manual de JTable
         sorter.setSortable(ListaEstudiantesTableModel.NOMBRE_COL, false);
