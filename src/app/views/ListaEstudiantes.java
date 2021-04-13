@@ -37,6 +37,8 @@ public class ListaEstudiantes extends JFrame {
         estudiantesLisTable = new JTable();
         
         scrollPane = new JScrollPane(estudiantesLisTable);
+        
+        add(scrollPane);
     }
 
 
