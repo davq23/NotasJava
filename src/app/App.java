@@ -35,33 +35,34 @@ public class App extends JFrame implements ActionListener {
     // Propiedades
     private final int textFieldSize = 10;
 
-    // Controladores
-    private XMLController xmlController;
-
+    
     // Archivo XML importado
     private File fileChosen;
 
     // Filtro de archivos
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Documento XML", "xml");
-
+    
     // Componentes de swing
     private JButton importXMLBtn = new JButton("Importar XML");
-
+    
     private JFileChooser jFileChooser = new JFileChooser();
-
+    
     private JLabel numEstudiantesLabel = new JLabel("N\u00famero de estudiantes");
     private JLabel numMateriasLabel = new JLabel("N\u00famero de materias");
-
+    
     private JTextField numEstudiantesTextField = new JTextField(textFieldSize);
     private JTextField numMateriasTextField = new JTextField(textFieldSize);
     private JTextField fileNameTextField = new JTextField();
 
     private JTable notasTable;
     private JScrollPane scrollPane;
-
+    
+    // Controladores
+    private XMLController xmlController;
+    
     // Listeners
     private CheckEnteroDocumentListener checkEnteroListener = new CheckEnteroDocumentListener();
-
+    
     // Modelos
     private NotasTableModel notasTableModel;
 
