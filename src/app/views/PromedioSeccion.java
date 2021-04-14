@@ -25,7 +25,7 @@ public class PromedioSeccion extends JDialog {
 
 
     public PromedioSeccion(JFrame parent, NotasTableModel notasTableModel) {
-        super(parent, "Promedio por secci\u00f3n");
+        super(parent, "Promedio de secci\u00f3n");
         
         this.notasTableModel = notasTableModel;
 
