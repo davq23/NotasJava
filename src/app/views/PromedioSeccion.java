@@ -47,7 +47,7 @@ public class PromedioSeccion extends JDialog {
         // Calcular promedio de sección
         double promedio = PromediosController.getPromedioDeSeccion(notasTableModel.getCalificaciones());
 
-        promedioLabel.setText(String.format("El promedio de la sección es %f", promedio));
+        promedioLabel.setText(String.format("El promedio de la secci\u00f3n es %f", promedio));
     }
     
 }
