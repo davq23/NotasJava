@@ -1,6 +1,5 @@
 package app.controllers;
 
-
 public class PromediosController {
     public static double[] getPromediosPorEstudiante(double[][] calificaciones) {
         // Calificaciones por estudiante (por fila)

@@ -172,6 +172,7 @@ public class MenuBar extends JMenuBar {
             }
         });
 
+        // Agregar menús al menubar
         add(exportarMenu);
         add(accionesMenu);
     }
